@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Client</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h3>Создание нового клиента</h3>
+        <hr>
+        <p class="h4 mb-4">Создать клиента</p>
+        <form action="#" th:action="@{/administration/saveClient}"
+              th:object="${theClient}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <input type="text" required th:field="*{lastName}"
+                class="form-control mb-4 col-4" placeholder="Фамилия">
+            <input type="text" required th:field="*{firstName}"
+                   class="form-control mb-4 col-4" placeholder="Имя">
+            <input type="text" th:field="*{patronymic}"
+                   class="form-control mb-4 col-4" placeholder="Отчество">
+            <input type="date" required th:field="*{dateOfBirth}"
+                   class="form-control mb-4 col-4" placeholder="Дата рождения">
+            <input type="text" required pattern="^\d{4}$" title="Серия паспорта в формате 0000" th:field="*{passportSer}"
+                   class="form-control mb-4 col-4" placeholder="Серия паспорта">
+            <input type="text" required pattern="^\d{6}$" title="Номер паспорта в формате 000000" th:field="*{passportNum}"
+                   class="form-control mb-4 col-4" placeholder="Номер паспорта">
+            <input type="text" th:field="*{address}"
+                   class="form-control mb-4 col-4" placeholder="Адрес">
+            <button type="submit" class="btn btn-success col-2">Сохранить</button>
+            <a th:href="@{/administration/clients}"
+               class="btn btn-primary col-2">
+                Возврат к списку
+            </a>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

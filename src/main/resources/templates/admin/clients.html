@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Administration pane</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Список клиентов</h3>
+    <hr>
+
+    <!-- Кнопка создать клиента -->
+    <a th:href="@{/administration/createClient}"
+       class="btn btn-primary btn-sm mb-3">
+        Создать клиента
+    </a>
+    <!-- Таблица клиентов -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Паспорт</th>
+            <th>Адрес</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="client : ${theClients}">
+            <td th:text="${client.id}"/>
+            <td th:text="${client.lastName}"/>
+            <td th:text="${client.firstName}"/>
+            <td th:text="${client.patronymic}"/>
+            <td th:text="${client.dateOfBirth}"/>
+            <td th:text="${client.passportSer + ' ' + client.passportNum}"/>
+            <td th:text="${client.address}"/>
+            <td>
+                <a th:href="@{/administration/updateClient(clientId=${client.id})}"
+                    class="btn btn-info btn-sm">
+                    Изменить
+                </a>
+                <a th:href="@{/administration/deleteClient(clientId=${client.id})}"
+                   class="btn btn-danger btn-sm"
+                    onclick="if (!(confirm('Вы действительно хотите удалить этого клиента?'))) return false">
+                    Удалить
+                </a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>
