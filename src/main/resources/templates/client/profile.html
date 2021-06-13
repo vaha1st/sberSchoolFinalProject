@@ -18,7 +18,27 @@
 
 <body>
     <div class="container">
+
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <b th:text="${client.firstName + ' ' + client.lastName}"></b>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a th:href="@{/client/profile}">Личный кабинет</a></li>
+                <li><a th:href="@{/logout}">Выйти</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
         <h3>Личный кабинет</h3>
+
+        <form th:action="@{/credit/navigate}" method="get">
+
+            <input type="submit" value="Оформить кредит" class="btn btn-success btn-sm">
+
+        </form>
+
     </div>
 </body>
 </html>
