@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html" lang="en">
+<head>
+    <title>Login page</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>Авторизация пользователя</h3>
+
+    <p th:if="${loginError}" class="alert alert-danger col-xs-off">Неправильный логин или пароль</p>
+    <p th:if="${param.logout}" class="alert alert-info col-xs-off">Вы вышли из сессии</p>
+    <form th:action="@{/authenticateUser}" method="post">
+        <label for="username">Логин</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus"
+               class="form-control mb-4 col-4"/> <br/>
+
+        <label for="password">Пароль</label>:
+        <input type="password" id="password" name="password"
+               class="form-control mb-4 col-4"/> <br/>
+
+        <input type="submit" class="btn btn-info col-1" th:value="Вход">
+
+    </form>
+
+</div>
+</body>
+</html>

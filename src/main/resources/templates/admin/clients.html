@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <title>Administration pane</title>
 
@@ -17,12 +17,19 @@
 </head>
 
 <body>
-
 <div class="container">
+    <form th:action="@{/logout}" method="post">
 
+        <input type="submit" value="Выйти" class="btn btn-dark btn-sm">
+
+    </form>
+    <p>
+        Пользователь: <span sec:authentication ="name"></span> |
+        Доступ: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+    </p>
+    <hr>
     <h3>Список клиентов</h3>
     <hr>
-
     <!-- Кнопка создать клиента -->
     <a th:href="@{/administration/createClient}"
        class="btn btn-primary btn-sm mb-3">
@@ -33,6 +40,7 @@
         <thead class="thead-dark">
         <tr>
             <th>ID</th>
+            <th>Логин</th>
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
@@ -45,13 +53,14 @@
 
         <tbody>
         <tr th:each="client : ${theClients}">
-            <td th:text="${client.id}"/>
-            <td th:text="${client.lastName}"/>
-            <td th:text="${client.firstName}"/>
-            <td th:text="${client.patronymic}"/>
-            <td th:text="${client.dateOfBirth}"/>
-            <td th:text="${client.passportSer + ' ' + client.passportNum}"/>
-            <td th:text="${client.address}"/>
+            <td th:text="${client.id}"></td>
+            <td th:text="${client.username}"></td>
+            <td th:text="${client.lastName}"></td>
+            <td th:text="${client.firstName}"></td>
+            <td th:text="${client.patronymic}"></td>
+            <td th:text="${client.dateOfBirth}"></td>
+            <td th:text="${client.passportSer + ' ' + client.passportNum}"></td>
+            <td th:text="${client.address}"></td>
             <td>
                 <a th:href="@{/administration/updateClient(clientId=${client.id})}"
                     class="btn btn-info btn-sm">

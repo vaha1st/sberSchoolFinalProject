@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Create Client</title>
 
@@ -23,6 +23,11 @@
         <form action="#" th:action="@{/administration/saveClient}"
               th:object="${theClient}" method="post">
             <input type="hidden" th:field="*{id}">
+            <input type="text" pattern="^.{0,50}$" title="Не более 50 символов" th:field="*{username}"
+                   class="form-control mb-4 col-4" placeholder="Логин">
+            <input type="password" required pattern="^.{0,60}$" title="Не более 60 символов" th:field="*{password}"
+                   class="form-control mb-4 col-4" placeholder="Пароль">
+            <hr>
             <input type="text" required th:field="*{lastName}"
                 class="form-control mb-4 col-4" placeholder="Фамилия">
             <input type="text" required th:field="*{firstName}"

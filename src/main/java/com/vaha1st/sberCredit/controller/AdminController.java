@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/administration")
 @AllArgsConstructor
-public class ProfileController {
+public class AdminController {
 
     private ClientService clientService;
 
