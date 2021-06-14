@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Result</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h3>К сожалению, выбранный кредит не одобрен. Попробуйте скорректировать параметры.</h3>
+    <hr>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Клиент</th>
+            <th>Сумма кредита</th>
+            <th>Процентная ставка</th>
+            <th>Срок кредита</th>
+            <th>Ежемесячный платеж</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:object="${credit}">
+            <td th:text="*{client.lastName + ' ' + client.firstName + ' ' + client.patronymic}"></td>
+            <td th:text="*{app.sum + ' руб.'}"></td>
+            <td th:text="*{app.creditScheme.rate +' % годовых'}"></td>
+            <td th:text="*{app.period + ' мес.'}"></td>
+            <td th:text="*{app.payment +' руб.'}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/client/profile}"
+       class="btn btn-success col-2">
+        ОК
+    </a>
+    <a th:href="@{/credit/application}"
+       class="btn btn-primary col-2">
+        Назад
+    </a>
+
+</div>
+
+</body>
+
+</html>

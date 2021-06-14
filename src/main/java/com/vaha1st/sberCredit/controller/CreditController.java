@@ -1,19 +1,18 @@
 package com.vaha1st.sberCredit.controller;
 
-import com.vaha1st.sberCredit.entity.Client;
-import com.vaha1st.sberCredit.entity.Credit;
-import com.vaha1st.sberCredit.entity.Form;
+import com.vaha1st.sberCredit.entity.*;
 import com.vaha1st.sberCredit.service.ClientService;
+import com.vaha1st.sberCredit.service.CreditSchemeService;
 import com.vaha1st.sberCredit.service.CreditService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/credit")
@@ -22,10 +21,12 @@ public class CreditController {
 
     ClientService clientService;
     CreditService creditService;
+    CreditSchemeService schemeService;
+
 
     private final String STATUS_FORM = "form";
     private final String STATUS_APP = "application";
-    private final String STATUS_PAY = "payment";
+    private final String STATUS_RES = "result";
 
     @GetMapping("/navigate")
     public String navigate(Principal principal) {
@@ -34,19 +35,22 @@ public class CreditController {
         switch (credit.getStatus()) {
             case STATUS_APP:
                 return "redirect:/credit/application";
-            case STATUS_PAY:
-                return "redirect:/credit/payment";
+            case STATUS_RES:
+                return "redirect:/credit/result";
             default:
                 return "redirect:/credit/form";
         }
     }
 
     @GetMapping("/form")
-    public String form(Model model, Principal principal) {
+    public String fillupForm(Model model, Principal principal) {
         Client client = clientService.getSingleClientByUserName(principal.getName());
         Credit credit = creditService.getCreditByClient(client);
         Form form;
         credit.setStatus(STATUS_FORM);
+        if (credit.getApp() != null) {
+            credit.getApp().setCreditScheme(null);
+        }
         creditService.saveOrUpdateCredit(credit);
         if (credit.getForm() == null) {
             form = new Form();
@@ -68,6 +72,90 @@ public class CreditController {
         transferFormToClient(credit);
         creditService.saveOrUpdateCredit(credit);
         return "redirect:/credit/application";
+    }
+
+    @GetMapping("/application")
+    public String fillupApplication(
+            @ModelAttribute("app") Application incomingApp,
+            @ModelAttribute("schemes") ArrayList<CreditScheme> incomingSchemes,
+            Model model, Principal principal) {
+        Client client = clientService.getSingleClientByUserName(principal.getName());
+        Credit credit = creditService.getCreditByClient(client);
+        Application app;
+        List<CreditScheme> schemes = model.containsAttribute("schemes") ? incomingSchemes : new ArrayList<>();
+        credit.setStatus(STATUS_APP);
+        creditService.saveOrUpdateCredit(credit);
+        if (incomingApp.getSum() == null) {
+            if (credit.getApp() == null) {
+                app = new Application();
+            } else {
+                app = credit.getApp();
+            }
+        } else {
+            app = incomingApp;
+            credit.setApp(app);
+            creditService.saveOrUpdateCredit(credit);
+        }
+        model.addAttribute("app", app);
+        model.addAttribute("schemes", schemes);
+        return "credit/application";
+    }
+
+    @PostMapping("/application/availableSchemes")
+    public String importAvailableSchemes(
+            @ModelAttribute("app") Application app,
+            RedirectAttributes redirectAttributes) {
+        List<CreditScheme> schemes = schemeService.getSchemesBySumAndPeriod(app.getSum(), app.getPeriod());
+        redirectAttributes.addAttribute("schemes", schemes);
+        redirectAttributes.addFlashAttribute("app", app);
+        return "redirect:/credit/application";
+    }
+
+    @PostMapping("/application/chooseScheme")
+    public String choose(
+                    @RequestParam("scheme") int schemeId,
+                    Principal principal,
+                    RedirectAttributes redirectAttributes) {
+        Client client = clientService.getSingleClientByUserName(principal.getName());
+        Credit credit = creditService.getCreditByClient(client);
+        credit.getApp().setCreditScheme(schemeService.getSchemeById(schemeId));
+        creditService.saveOrUpdateCredit(credit);
+        List<CreditScheme> schemes = schemeService.getSchemesBySumAndPeriod(credit.getApp().getSum(), credit.getApp().getPeriod());
+        redirectAttributes.addAttribute("schemes", schemes);
+        return "redirect:/credit/application";
+    }
+
+    @GetMapping("/calculate")
+    public String calculate(Principal principal) {
+        Client client = clientService.getSingleClientByUserName(principal.getName());
+        Credit credit = creditService.getCreditByClient(client);
+        credit.setStatus(STATUS_RES);
+        calculatePayment(credit.getApp());
+        creditService.saveOrUpdateCredit(credit);
+        return "redirect:/credit/result";
+    }
+
+    @GetMapping("/result")
+    public String showResult(Model model, Principal principal) {
+        Client client = clientService.getSingleClientByUserName(principal.getName());
+        Credit credit = creditService.getCreditByClient(client);
+        model.addAttribute("credit", credit);
+        if (credit.getApp().isPreApproved()) {
+            return "result/preapproved";
+        }
+        return "result/denied";
+    }
+
+    private void calculatePayment(Application app) {
+        int creditSum = app.getSum();
+        float ratePerMonth = app.getCreditScheme().getRate() / 12 / 100;
+        int paysQuantity = app.getPeriod();
+
+        float monthlyPayment = (float) (creditSum * ((ratePerMonth * Math.pow(1 + ratePerMonth, paysQuantity))
+                / (Math.pow(1 + ratePerMonth, paysQuantity) - 1)));
+
+        app.setPayment(monthlyPayment);
+        app.setPreApproved(app.getSalary() * 0.7 >= monthlyPayment);
     }
 
     private void transferClientToForm(Credit credit, Form form) {

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Credit Application</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <h3>Заявка</h3>
+    <hr>
+    <div class="container">
+        <h3>Выбор параметров кредита</h3>
+        <hr>
+        <form action="#" th:action="@{/credit/application/availableSchemes}"
+              th:object="${app}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <input type="number" required th:field="*{salary}"
+                   class="form-control mb-4 col-4" placeholder="Ваша среднемесячная заработная плата в рублях">
+            <input type="number" required th:field="*{sum}"
+                   class="form-control mb-4 col-4" placeholder="Желаемая сумма кредита в рублях">
+            <input type="number" required th:field="*{period}"
+                   class="form-control mb-4 col-4" placeholder="Срок кредита в месяцах">
+            <input type="text" disabled th:field="*{creditScheme.name}"
+                   class="form-control mb-4 col-4" placeholder="Выбранная схема кредитования">
+            <input type="submit" value="Показать доступные схемы кредитования" class="btn btn-dark btn-sm">
+        </form>
+    </div>
+    <div class="container">
+        <h3>Доступные схемы кредитования</h3>
+        <hr>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Наименование</th>
+                <th>Минимальная сумма</th>
+                <th>Максимальная сумма</th>
+                <th>Процентная ставка</th>
+                <th>Максимальный срок кредита</th>
+                <th>Действие</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="scheme : ${schemes}">
+                <td th:text="${scheme.name}"></td>
+                <td th:text="${scheme.minSum + ' руб.'}"></td>
+                <td th:text="${scheme.maxSum + ' руб.'}"></td>
+                <td th:text="${scheme.rate + ' процентов годовых'}"></td>
+                <td th:text="${scheme.period + ' месяцев'}"></td>
+                <td>
+                    <form action="#" th:action="@{/credit/application/chooseScheme(scheme=${scheme.id})}"
+                          method="post">
+                        <input type="submit" value="Выбрать" class="btn btn-info btn-sm">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form action="#" th:action="@{/credit/calculate}" method="get">
+        <button type="submit" th:disabled="${app.creditScheme == null}" class="btn btn-success col-2">Рассчитать
+        </button>
+        <a th:href="@{/credit/form}"
+           class="btn btn-primary col-2">
+            Назад
+        </a>
+    </form>
+
+</div>
+
+</body>
+
+</html>

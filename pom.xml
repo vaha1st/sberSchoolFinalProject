@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.vaha1st</groupId>
 	<artifactId>sberCredit</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>sberCredit</name>
 	<description>Final project for sber school</description>
 	<properties>
