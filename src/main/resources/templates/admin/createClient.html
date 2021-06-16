@@ -17,6 +17,15 @@
 
 <body>
     <div class="container">
+        <form th:action="@{/logout}" method="post">
+
+            <input type="submit" value="Выйти" class="btn btn-dark btn-sm">
+            <a>
+                Пользователь: <span sec:authentication="name"></span> |
+                Доступ: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+            </a>
+        </form>
+        <hr>
         <h3>Создание нового клиента</h3>
         <hr>
         <p class="h4 mb-4">Создать клиента</p>

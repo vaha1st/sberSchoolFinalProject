@@ -1,44 +1,87 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <title>MyProfile</title>
-
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-    <!-- Bootstrap CSS -->
+    <title>Profile</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/">
+
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
 
+    <link href="narrow-jumbotron.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
 
+<div class="container">
+    <div class="header clearfix">
         <div class="dropdown">
-            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <b th:text="${client.firstName + ' ' + client.lastName}"></b>
-                <span class="caret"></span>
+            <button class="btn btn-dark dropdown-toggle float-left" type="button" id="dropdownMenu1"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <b th:text="Меню"></b>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a th:href="@{/client/profile}">Личный кабинет</a></li>
-                <li><a th:href="@{/logout}">Выйти</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/client/profile}">Личный кабинет</a>
+                <a class="dropdown-item" href="javascript: document.logoutForm.submit()" role="menuitem">Выйти</a>
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Sign Out">
+                </form>
+            </div>
         </div>
-        <h3>Личный кабинет</h3>
+        <h3 class="text-muted">Банк ФинальныйПроект</h3>
+    </div>
 
-        <form th:action="@{/credit/navigate}" method="get">
+    <div class="jumbotron">
+        <h2 class="display-3">Личный кабинет</h2>
+        <p class="lead">В банке ФинальныйПроект вы можете начать оформление кредита самостоятельно!</p>
+        <form th:if="${credit != null}" th:action="@{/credit/navigate}" method="get">
 
-            <input type="submit" value="Оформить кредит" class="btn btn-success btn-sm">
+            <input type="submit" value="Продолжить оформление" class="btn btn-success btn-lg">
+            <a th:if="${credit.app != null && credit.app.creditScheme != null}"
+               th:type="text"
+               th:text="'Кредит на сумму' + ${credit.app.sum} + ' под ' + ${credit.app.creditScheme.rate} + ' % годовых'"></a>
+        </form>
+        <form th:if="${credit == null}" th:action="@{/credit/navigate}" method="get">
+
+            <input type="submit" value="Оформить кредит" class="btn btn-success btn-lg">
 
         </form>
-
     </div>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <a class="lead" th:type="text" th:text="${client.username}"></a>
+            <hr>
+            <a class="lead" th:type="text" th:text="${client.lastName + ' ' + client.firstName + ' ' + client.patronymic}"></a>
+            <br>
+            <br>
+            <br>
+        </div>
+
+        <div class="col-md-6 mb-12">
+
+
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; vaha1st 2021</p>
+    </footer>
+
+</div> <!-- /container -->
 </body>
 </html>

@@ -34,7 +34,8 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public List<Client> getClients() {
-        return clientRepository.findAllByOrderByLastNameAsc();
+        List<Client> clients = clientRepository.findAllByOrderByLastNameAsc();
+        return clients.stream().filter(a -> !a.getRoles().contains(rolesRepository.getByName("ROLE_ADMIN"))).collect(Collectors.toList());
     }
 
     @Override

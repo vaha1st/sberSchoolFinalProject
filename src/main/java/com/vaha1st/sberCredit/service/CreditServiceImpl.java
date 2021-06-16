@@ -61,6 +61,31 @@ public class CreditServiceImpl implements CreditService{
     }
 
     @Override
+    public Credit getCreditByClientWithoutNew(Client client) {
+        Optional<Credit> result = creditRepository.findByClientAndFinishedIsFalseOrFinishedIsNull(client);
+
+        Credit credit = null;
+
+        if (result.isPresent()) {
+            credit = result.get();
+        }
+        return credit;
+    }
+
+    @Override
+    public void finalizeCredit(int id) {
+        Optional<Credit> result = creditRepository.findById(id);
+
+        Credit credit = null;
+
+        if (result.isPresent()) {
+            credit = result.get();
+            credit.setFinished(true);
+            creditRepository.save(credit);
+        }
+    }
+
+    @Override
     public void saveOrUpdateCredit(Credit credit) {
         creditRepository.save(credit);
     }

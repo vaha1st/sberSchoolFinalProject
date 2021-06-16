@@ -28,6 +28,11 @@ public class CreditController {
     private final String STATUS_APP = "application";
     private final String STATUS_RES = "result";
 
+    @GetMapping("/privacy")
+    public String privacy() {
+        return "/credit/privacy";
+    }
+
     @GetMapping("/navigate")
     public String navigate(Principal principal) {
         Client client = clientService.getSingleClientByUserName(principal.getName());
@@ -146,6 +151,12 @@ public class CreditController {
         return "result/denied";
     }
 
+    @PostMapping("/finalize")
+    public String finalizeCredit(@RequestParam("credit") int id) {
+        creditService.finalizeCredit(id);
+        return "redirect:/client/profile";
+    }
+
     private void calculatePayment(Application app) {
         int creditSum = app.getSum();
         float ratePerMonth = app.getCreditScheme().getRate() / 12 / 100;
@@ -154,7 +165,7 @@ public class CreditController {
         float monthlyPayment = (float) (creditSum * ((ratePerMonth * Math.pow(1 + ratePerMonth, paysQuantity))
                 / (Math.pow(1 + ratePerMonth, paysQuantity) - 1)));
 
-        app.setPayment(monthlyPayment);
+        app.setPayment((Math.round(monthlyPayment * 100f) / 100f));
         app.setPreApproved(app.getSalary() * 0.7 >= monthlyPayment);
     }
 

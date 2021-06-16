@@ -21,12 +21,12 @@
     <form th:action="@{/logout}" method="post">
 
         <input type="submit" value="Выйти" class="btn btn-dark btn-sm">
-
+        <a>
+            Пользователь: <span sec:authentication="name"></span> |
+            Доступ: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+        </a>
     </form>
-    <p>
-        Пользователь: <span sec:authentication ="name"></span> |
-        Доступ: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-    </p>
+
     <hr>
     <h3>Список клиентов</h3>
     <hr>
@@ -63,12 +63,12 @@
             <td th:text="${client.address}"></td>
             <td>
                 <a th:href="@{/administration/updateClient(clientId=${client.id})}"
-                    class="btn btn-info btn-sm">
+                   class="btn btn-info btn-sm">
                     Изменить
                 </a>
                 <a th:href="@{/administration/deleteClient(clientId=${client.id})}"
                    class="btn btn-danger btn-sm"
-                    onclick="if (!(confirm('Вы действительно хотите удалить этого клиента?'))) return false">
+                   onclick="if (!(confirm('Вы действительно хотите удалить этого клиента?'))) return false">
                     Удалить
                 </a>
             </td>

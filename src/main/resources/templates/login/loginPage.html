@@ -15,24 +15,30 @@
           crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-    <h3>Авторизация пользователя</h3>
+<div>
+    <div class="container">
+        <div>
+            <h3 class="text-muted">Банк ФинальныйПроект</h3>
+            <hr>
+        </div>
+        <h3>Авторизация пользователя</h3>
 
-    <p th:if="${loginError}" class="alert alert-danger col-xs-off">Неправильный логин или пароль</p>
-    <p th:if="${param.logout}" class="alert alert-info col-xs-off">Вы вышли из сессии</p>
-    <form th:action="@{/authenticateUser}" method="post">
-        <label for="username">Логин</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus"
-               class="form-control mb-4 col-4"/> <br/>
+        <p th:if="${loginError}" class="alert alert-danger col-xs">Неправильный логин или пароль</p>
+        <p th:if="${param.logout}" class="alert alert-info col-xs">Вы вышли из сессии</p>
+        <form th:action="@{/authenticateUser}" method="post">
+            <label for="username">Логин</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus"
+                   class="form-control mb-4 col-4"/> <br/>
 
-        <label for="password">Пароль</label>:
-        <input type="password" id="password" name="password"
-               class="form-control mb-4 col-4"/> <br/>
+            <label for="password">Пароль</label>:
+            <input type="password" id="password" name="password"
+                   class="form-control mb-4 col-4"/> <br/>
 
-        <input type="submit" class="btn btn-info col-1" th:value="Вход">
+            <input type="submit" class="btn btn-info col-1" th:value="Вход">
 
-    </form>
+        </form>
 
+    </div>
 </div>
 </body>
 </html>
