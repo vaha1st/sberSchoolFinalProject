@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>0fef3166-4024-41c7-befe-b80ab30b90c1</OriginalElement>
+  <nodes>
+    <node x="-214.0065573770492" y="34.30491803278687">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.APPLICATION</node>
+    <node x="344.6646174863389" y="353.5409836065574">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.FORM</node>
+    <node x="762.4859289617489" y="441.54098360655735">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.ROLE</node>
+    <node x="721.9859289617489" y="83.89180327868851">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.USERS_ROLES</node>
+    <node x="-209.0065573770492" y="397.5409836065574">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CREDIT_SCHEME</node>
+    <node x="360.6646174863389" y="34.30491803278687">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CLIENT</node>
+    <node x="93.87821038251374" y="34.30491803278687">0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CREDIT</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CREDIT" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.APPLICATION" relationship="REFERENCES">
+      <point x="-56.33333333333334" y="-83.0" />
+      <point x="122.0448770491804" y="128.30491803278687" />
+      <point x="-122.0065573770492" y="128.30491803278687" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.USERS_ROLES" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CLIENT" relationship="REFERENCES">
+      <point x="-38.5" y="-38.5" />
+      <point x="760.4859289617489" y="128.30491803278687" />
+      <point x="472.1646174863389" y="128.30491803278687" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CREDIT" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.FORM" relationship="REFERENCES">
+      <point x="0.0" y="-83.0" />
+      <point x="178.37821038251374" y="584.0" />
+      <point x="472.1646174863389" y="584.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.FORM" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CLIENT" relationship="REFERENCES">
+      <point x="0.0" y="-127.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.APPLICATION" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CREDIT_SCHEME" relationship="REFERENCES">
+      <point x="0.0" y="-94.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.USERS_ROLES" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.ROLE" relationship="REFERENCES">
+      <point x="38.5" y="-38.5" />
+      <point x="0.0" y="39.0" />
+    </edge>
+    <edge source="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CREDIT" target="0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.CLIENT" relationship="REFERENCES">
+      <point x="56.333333333333314" y="-83.0" />
+      <point x="234.71154371584706" y="128.30491803278687" />
+      <point x="472.1646174863389" y="128.30491803278687" />
+      <point x="0.0" y="127.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7663316582914573" showDependencies="false" x="371.0" y="388.0" />
+  <SelectedNodes>
+    <node>0fef3166-4024-41c7-befe-b80ab30b90c1.TABLE:DATA.PUBLIC.ROLE</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
