@@ -47,13 +47,13 @@
               th:object="${app}" method="post">
             <input type="hidden" th:field="*{id}">
             <a class="lead" th:type="text">Заработная плата</a>
-            <input type="number" required th:field="*{salary}"
+            <input type="number" th:min="0" required th:field="*{salary}"
                    class="form-control mb-4 col-12" placeholder="Ваша среднемесячная заработная плата в рублях">
             <a class="lead" th:type="text">Сумма кредита</a>
-            <input type="number" required th:field="*{sum}"
+            <input type="number" th:min="0" required th:field="*{sum}"
                    class="form-control mb-4 col-12" placeholder="Желаемая сумма кредита в рублях">
             <a class="lead" th:type="text">Срок кредита</a>
-            <input type="number" required th:field="*{period}"
+            <input type="number" th:min="0" th:max="120" required th:field="*{period}"
                    class="form-control mb-4 col-12" placeholder="Срок кредита в месяцах">
             <a class="lead" th:type="text">Схема кредитования</a>
             <input type="text" disabled th:field="*{creditScheme.name}"
