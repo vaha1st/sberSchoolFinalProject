@@ -3,7 +3,7 @@ The final project of Sber Java School.
 Simple bank web application.
 
 ## Features:
-- Administration. CRUD operations with clients.
+- Administration. CRUD operations on clients.
 - Client interface. Profile and loan processing.
 
 ![screenshot](https://github.com/vaha1st/sberSchoolFinalProject/blob/master/src/main/resources/img/profile.png)
@@ -26,4 +26,9 @@ Users:
 
 > Test Client.  
 > login: **test**,    password: **test**.
+
+## Used Sources
+- [Best Spring course](https://www.udemy.com/course/spring-hibernate-tutorial) on Udemy by Chad Darby
+- Spring Tutorials and Guides at [baeldung.com](https://www.baeldung.com)
+- [stackoverflow.com](https://stackoverflow.com) and Google
 
