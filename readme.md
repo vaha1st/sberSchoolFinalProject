@@ -3,7 +3,7 @@ The final project of Sber Java School.
 Simple bank web application.
 
 ## Features:
-- Administration. CRUD operations with clients.
+- Administration. CRUD operations on clients.
 - Client interface. Profile and loan processing.
 
 ![screenshot](https://github.com/vaha1st/sberSchoolFinalProject/blob/master/src/main/resources/img/profile.png)
