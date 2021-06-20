@@ -27,3 +27,8 @@ Users:
 > Test Client.  
 > login: **test**,    password: **test**.
 
+## Used Sources
+- [Best Spring course](https://www.udemy.com/course/spring-hibernate-tutorial) on Udemy by Chad Darby
+- Spring Tutorials and Guides at [baeldung.com](https://www.baeldung.com)
+- [stackoverflow.com](https://stackoverflow.com) and Google
+

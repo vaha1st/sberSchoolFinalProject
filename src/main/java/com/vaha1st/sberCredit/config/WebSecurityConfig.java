@@ -34,7 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/administration/**").hasRole("ADMIN")
-                .antMatchers("/profile/**").hasRole("CLIENT")
                 .and()
                 .formLogin()
                 .loginPage("/loginPage")
@@ -44,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authSuccessHandler)
                 .and()
                 .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/loginPage")
                 .permitAll()
                 .and()
