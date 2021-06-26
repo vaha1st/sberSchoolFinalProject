@@ -30,7 +30,7 @@ public class CreditController {
 
     @GetMapping("/privacy")
     public String privacy() {
-        return "/credit/privacy";
+        return "credit/privacy";
     }
 
     @GetMapping("/navigate")
